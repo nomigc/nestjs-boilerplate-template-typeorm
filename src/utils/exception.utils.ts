@@ -13,7 +13,6 @@ export class CustomConflictException extends HttpException {
         success: false,
         message,
         data,
-        status: HttpStatus.CONFLICT,
       },
       HttpStatus.CONFLICT,
     );
@@ -32,7 +31,6 @@ export class CustomBadRequestException extends HttpException {
         success: false,
         message,
         data,
-        status: HttpStatus.BAD_REQUEST,
       },
       HttpStatus.BAD_REQUEST,
     );
@@ -51,7 +49,6 @@ export class CustomNotFoundException extends HttpException {
         success: false,
         message,
         data,
-        status: HttpStatus.NOT_FOUND,
       },
       HttpStatus.NOT_FOUND,
     );
@@ -70,7 +67,6 @@ export class CustomForbiddenException extends HttpException {
         success: false,
         message,
         data,
-        status: HttpStatus.FORBIDDEN,
       },
       HttpStatus.FORBIDDEN,
     );
@@ -89,7 +85,6 @@ export class CustomUnauthorizedException extends HttpException {
         success: false,
         message,
         data,
-        status: HttpStatus.UNAUTHORIZED,
       },
       HttpStatus.UNAUTHORIZED,
     );
@@ -108,7 +103,6 @@ export class CustomOKException extends HttpException {
         success: true,
         message,
         data,
-        status: HttpStatus.OK,
       },
       HttpStatus.OK,
     );

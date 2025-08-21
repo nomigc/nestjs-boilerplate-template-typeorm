@@ -1,7 +1,7 @@
 import { AppConfigService } from '@/config/config.service';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class JwtCustomService {
@@ -31,7 +31,7 @@ export class JwtCustomService {
    * @returns {string | JwtPayload} The decoded payload if the token is valid, otherwise throws an error.
    */
 
-  validateToken(token: string): string | JwtPayload {
+  validateToken(token: string): string | jwt.JwtPayload {
     return jwt.verify(token, this.appConfigService.jwtSecretKey);
   }
 }

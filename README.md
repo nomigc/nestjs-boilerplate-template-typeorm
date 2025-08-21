@@ -1,25 +1,34 @@
-# 🚀 NestJS Starter Template with Postgresql, Repository Pattern & Authentication
-
-A clean and extensible NestJS starter template powered by Postgresql. Built with the Repository Pattern for maintainable code and Passport-based JWT authentication for secure access control.
-
----
-
 ## 📦 Tech Stack
 
 - **Backend Framework**: [NestJS](https://nestjs.com/)
 - **ORM**: [Typeorm](https://typeorm.io/)
 - **Database**: [Postgresql](https://www.postgresql.org/docs/)
-- **Authentication**: [PassportJS](https://medium.com/@camillefauchier/implementing-authentication-in-nestjs-using-passport-and-jwt-5a565aa521de) + JWT
+- **Authentication**: [PassportJS](https://www.passportjs.org/docs/) + JWT
 - **Architecture Pattern**: Repository Pattern
 
 ---
 
-## ✅ Features
+## Roles
 
-- ✅ NestJS with modular architecture
-- ✅ Postgres integration with Typeorm
-- ✅ Repository Pattern for abstraction & clean code
-- ✅ Passport + JWT Authentication
-- ✅ Role-based access ready (can be extended)
-- ✅ Environment-based config with `.env`
-- ✅ Organized and scalable folder structure
+- admin
+- user
+
+---
+
+### Credentials (for development)
+
+1. user
+
+```
+{
+    "email": "user@gmail.com",
+    "password": "Nn14@abc"
+}
+```
+---
+
+## Things to know
+
+1. Repository name (i.e service name) with TypeOrm prefix means that this is the table entity. And service names without TypeOrm prefix means that it contains db logic (normally quries).
+
+2. Always store time in utc.

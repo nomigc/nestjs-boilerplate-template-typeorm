@@ -10,19 +10,19 @@ import { Repository, ObjectLiteral } from 'typeorm';
  * To delete an entity from the database.
  * @param id - ID of the entity to delete.
  * @param MODEL - Model name for error messages.
- * @param repository - TypeORM Repository for the entity.
+ * @param typeormRepository - TypeORM Repository for the entity.
  * @returns Deleted entity or throws if not found.
  */
 export const deleteRepositoryHelper = async <T extends ObjectLiteral>(
   id: string,
   MODEL: string,
-  repository: Repository<T>,
+  typeormRepository: Repository<T>,
 ): Promise<T> => {
   if (!isValidNumberId(id)) {
     throw new CustomBadRequestException('Id is not valid');
   }
 
-  const repo = new BaseRepositoriesService<T>(repository);
+  const repo = new BaseRepositoriesService<T>(typeormRepository);
 
   const deletedEntity = await repo.delete(id);
   if (!deletedEntity) {

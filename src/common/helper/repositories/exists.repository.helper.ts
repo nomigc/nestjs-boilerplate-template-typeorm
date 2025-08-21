@@ -1,5 +1,5 @@
 import { BaseRepositoriesService } from '@/services/repositories/repositories.service';
-import { CustomConflictException } from '@/utils';
+import { CustomBadRequestException, CustomConflictException, isValidNumberId } from '@/utils';
 import { Repository, Not, ObjectLiteral } from 'typeorm';
 
 /**
@@ -12,17 +12,20 @@ import { Repository, Not, ObjectLiteral } from 'typeorm';
  */
 export const existsRepositoryHelper = async <T extends ObjectLiteral>(
   fieldValue: any,
-  fieldName: keyof T,
+  fieldName: any,
   typeormRepository: Repository<T>,
   id?: number | string,
 ): Promise<void> => {
-  // Dynamically build filter
   const filter: Record<string, any> = {
     [fieldName]: fieldValue,
+    isDeleted: false,
   };
 
   if (id) {
-    filter.id = Not(id); // Exclude current record by ID
+    if (!isValidNumberId(id)) {
+      throw new CustomBadRequestException('Id is not valid');
+    }
+    filter.id = Not(id);
   }
 
   const repo = new BaseRepositoriesService<T>(typeormRepository);

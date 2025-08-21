@@ -12,10 +12,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MailModule } from '../../mail/mail.module';
 import { MailService } from '../../mail/mail.service';
 import { JwtCustomModule } from '@/services/jwt/jwt.module';
+import { Group } from '../groups-and-menus/groups/entities';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Group]),
     HashModule,
     JwtCustomModule,
     UserModule,
@@ -24,9 +25,7 @@ import { JwtCustomModule } from '@/services/jwt/jwt.module';
       useFactory: async (configService: ConfigService) => ({
         secret: configService.get<string>('JWT_KEY'),
         signOptions: {
-          expiresIn: parseInt(
-            configService.getOrThrow<string>('TOKEN_EXPIRE_IN'),
-          ),
+          expiresIn: parseInt(configService.getOrThrow<string>('TOKEN_EXPIRE_IN')),
         },
       }),
       inject: [ConfigService],

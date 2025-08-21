@@ -1,19 +1,27 @@
-import { Role } from '../enums';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Group } from '@/controllers/groups-and-menus/groups/entities';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: false })
-  firstName: string;
-
-  @Column({ nullable: false })
-  lastName: string;
-
-  @Column({ nullable: true, unique: true })
+  @Column({ nullable: false, unique: true })
   userName: string;
+
+  @Column({ nullable: false })
+  realName: string;
+
+  @Column({ nullable: false })
+  initials: string; //* (i.e Nouman Sharif => NS)
 
   @Column({ nullable: false, unique: true })
   email: string;
@@ -23,14 +31,6 @@ export class User {
 
   @Column({ nullable: true })
   age?: number;
-
-  @Column({
-    type: 'enum',
-    enum: Role,
-    nullable: true,
-    default: Role.user,
-  })
-  role?: Role;
 
   @Column({
     default: false,
@@ -45,12 +45,33 @@ export class User {
   @Column({
     default: false,
   })
+  isActive: boolean;
+
+  @Column({
+    default: false,
+  })
   isOTPon: boolean;
 
   @Column({
     nullable: true,
   })
   otp?: string;
+
+  @Column({ nullable: false })
+  groupId: number;
+
+  @ManyToOne(() => Group, (group) => group.id, { nullable: false })
+  @JoinColumn({ name: 'groupId' })
+  group: Group;
+
+  @Column({ nullable: true })
+  mobileNumber?: string;
+
+  @CreateDateColumn({ type: 'timestamptz' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ type: 'timestamptz' })
+  updatedAt: Date;
 }
 
 export const USER_MODEL: string = User.name;

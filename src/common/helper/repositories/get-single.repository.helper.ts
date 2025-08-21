@@ -1,30 +1,30 @@
 import { BaseRepositoriesService } from '@/services/repositories/repositories.service';
-import {
-  CustomBadRequestException,
-  CustomNotFoundException,
-  isValidNumberId,
-} from '@/utils';
+import { CustomBadRequestException, CustomNotFoundException, isValidNumberId } from '@/utils';
 import { ObjectLiteral, Repository } from 'typeorm';
 
 /**
  * To get a single entity from the database.
  * @param id - ID of the entity to fetch.
  * @param MODEL - Model name for error messages.
- * @param repository - TypeORM Repository for the entity.
+ * @param typeormRepository - TypeORM Repository for the entity.
+ * @param relations - Optional relations to include in the query.
+ * @param selectedFields - Optional fields to select in the query.
  * @returns The found entity or throws if not found.
  */
-export const getSingleRepositoryHelper = async <T extends ObjectLiteral>(
-  id: string,
+export const findOneRepositoryHelper = async <T extends ObjectLiteral>(
+  id: string | number,
   MODEL: string,
-  repository: Repository<T>,
+  typeormRepository: Repository<T>,
+  relations: string[] = [],
+  selectedFields?: string[],
 ): Promise<T> => {
   if (!isValidNumberId(id)) {
     throw new CustomBadRequestException('Id is not valid');
   }
 
-  const repo = new BaseRepositoriesService<T>(repository);
+  const repo = new BaseRepositoriesService<T>(typeormRepository);
 
-  const entity = await repo.findById(id);
+  const entity = await repo.findByIdWithPopulate(id, relations, selectedFields);
   if (!entity) {
     throw new CustomNotFoundException(`${MODEL} not found`);
   }

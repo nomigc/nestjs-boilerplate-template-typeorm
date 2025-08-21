@@ -6,6 +6,7 @@ export class AppConfigService {
   constructor(private configService: ConfigService) {}
 
   //* Application Global Credentials
+
   get mode(): string {
     return this.configService.get<string>('MODE', 'dev')!; //* Default: 'dev'
   }
@@ -26,6 +27,20 @@ export class AppConfigService {
 
   get serverPath(): string {
     return this.mode === 'prod' ? this.prodBackendUrl : this.localBackendUrl;
+  }
+
+  //* Frontend URLs
+
+  get localFrontendUrl(): string {
+    return this.configService.get<string>('LOCAL_FRONTEND_URL')!;
+  }
+
+  get prodFrontendUrl(): string {
+    return this.configService.get<string>('PROD_FRONTEND_URL')!;
+  }
+
+  get clientPath(): string {
+    return this.mode === 'prod' ? this.prodFrontendUrl : this.localFrontendUrl;
   }
 
   //* JWT Credentials
@@ -53,9 +68,7 @@ export class AppConfigService {
   }
 
   get sessionSaveUninitialized(): boolean {
-    return Boolean(
-      this.configService.get<boolean>('SESSION_SAVE_UNINITIALIZED', false),
-    )!;
+    return Boolean(this.configService.get<boolean>('SESSION_SAVE_UNINITIALIZED', false))!;
   }
 
   get sessionSecure(): boolean {
@@ -102,8 +115,30 @@ export class AppConfigService {
     return this.configService.get<string>('DB_NAME')!;
   }
 
-  //* nodemailer credentials
-  
+  get dbUri(): string {
+    return this.configService.get<string>('DB_URI')!;
+  }
+
+  //* Typeorm Credentials
+
+  get typeormSynchronize(): boolean {
+    return Boolean(this.configService.get<boolean>('TYPEORM_SYNCHRONIZE', false))!;
+  }
+
+  get typeormLogging(): boolean {
+    return Boolean(this.configService.get<boolean>('TYPEORM_LOGGING', false))!;
+  }
+
+  get envTypeormSynchronize(): boolean {
+    return this.mode === 'prod' ? this.typeormSynchronize : true;
+  }
+
+  get envTypeormLogging(): boolean {
+    return this.mode === 'prod' ? this.typeormLogging : true;
+  }
+
+  //* Nodemailer Credentials
+
   get mailHost(): string {
     return this.configService.get<string>('NODEMAILER_HOST')!;
   }
@@ -122,5 +157,31 @@ export class AppConfigService {
 
   get mailPassword(): string {
     return this.configService.get<string>('NODEMAILER_PASSWORD')!;
+  }
+
+  //* Cookie Credentials
+
+  get cookieSecure(): boolean {
+    return this.configService.get<boolean>('COOKIE_SECURE')!;
+  }
+
+  get envCookieSecure(): boolean {
+    return this.mode === 'prod' ? this.cookieSecure : false;
+  }
+
+  get cookieHttpOnly(): boolean {
+    return this.configService.get<boolean>('COOKIE_HTTP_ONLY')!;
+  }
+
+  get envCookieHttpOnly(): boolean {
+    return this.mode === 'prod' ? this.cookieHttpOnly : false;
+  }
+
+  get cookieSameSite(): string {
+    return this.configService.get<string>('COOKIE_SAME_SITE', 'lax')!;
+  }
+
+  get envCookieSameSite(): any {
+    return this.mode === 'prod' ? this.cookieSameSite : 'lax';
   }
 }

@@ -9,9 +9,14 @@ import { corsConfig } from './lib';
 import { AppConfigService } from './config/config.service';
 import { AllExceptionsFilter } from './common/filters';
 import * as session from 'express-session';
+import * as cookieParser from 'cookie-parser';
+import { WINSTON_MODULE_NEST_PROVIDER, WinstonModule } from 'nest-winston';
+import { winstonConfig } from './common/logger';
 
 export const createApp = async () => {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: WinstonModule.createLogger(winstonConfig),
+  });
 
   //* config vars
   const configService = app.get(AppConfigService);
@@ -20,16 +25,16 @@ export const createApp = async () => {
   const PORT = configService.port;
 
   //* sessions
-  app.use(
-    session({
-      secret: configService.sessionSecret,
-      resave: configService.sessionResave,
-      saveUninitialized: configService.sessionSaveUninitialized,
-      cookie: {
-        secure: configService.envSessionSecure,
-      },
-    }),
-  );
+  // app.use(
+  //   session({
+  //     secret: configService.sessionSecret,
+  //     resave: configService.sessionResave,
+  //     saveUninitialized: configService.sessionSaveUninitialized,
+  //     cookie: {
+  //       secure: configService.envSessionSecure,
+  //     },
+  //   }),
+  // );
 
   //* middlewares
   app.use(helmet());
@@ -37,6 +42,8 @@ export const createApp = async () => {
   app.enableCors(corsConfig);
   app.useGlobalPipes(new ValidationPipe(responseValidation));
   app.useGlobalFilters(new AllExceptionsFilter());
+  app.use(cookieParser());
+  app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
 
   //* set Global Prefix
   app.setGlobalPrefix(`/${API_PREFIX}/${API_VERSION}`);
