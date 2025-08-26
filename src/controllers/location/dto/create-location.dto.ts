@@ -1,5 +1,14 @@
+import { DeliverableEmailValidator } from '@/common/validators';
 import { Type } from 'class-transformer';
-import { IsString, IsOptional, IsNotEmpty, IsNumber, IsEmail, IsDate } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsNotEmpty,
+  IsNumber,
+  IsEmail,
+  IsDate,
+  Validate,
+} from 'class-validator';
 
 export class CreateLocationDto {
   @IsNumber({}, { message: 'Practice id should be a number' })
@@ -10,100 +19,103 @@ export class CreateLocationDto {
   @IsNotEmpty({ message: 'Location name is required' })
   locationName: string;
 
-  @IsString()
+  @IsString({ message: 'Billing name should be a string' })
   @IsOptional()
   billingName?: string;
 
-  @IsString()
+  @IsString({ message: 'Address should be a string' })
   @IsOptional()
   address?: string;
 
-  @IsEmail()
+  @Validate(DeliverableEmailValidator)
+  @IsEmail({}, { message: 'Support email is not valid' })
   @IsOptional()
   supportEmail?: string;
 
-  @IsString()
+  @IsString({ message: 'City should be a string' })
   @IsOptional()
   city?: string;
 
-  @IsString()
+  @IsString({ message: 'State should be a string' })
   @IsOptional()
   state?: string;
 
-  @IsString()
+  @IsString({ message: 'Zip code should be a string' })
   @IsOptional()
   zipNo?: string;
 
-  @IsString()
+  @IsString({ message: 'Phone should be a string' })
   @IsOptional()
   phone?: string;
 
-  @IsString()
+  @IsString({ message: 'Phone should be a string' })
   @IsOptional()
   phoneTwo?: string;
 
-  @IsString()
+  @IsString({ message: 'Fax should be a string' })
   @IsOptional()
   fax?: string;
 
-  @IsEmail()
+  @Validate(DeliverableEmailValidator)
+  @IsEmail({}, { message: 'Email is not valid' })
   @IsOptional()
   email?: string;
 
-  @IsString()
+  @IsString({ message: 'Web should be a string' })
   @IsOptional()
   web?: string;
 
-  @IsString()
+  @IsString({ message: 'NPI should be a string' })
   @IsOptional()
   npi?: string;
 
-  @IsString()
+  @IsString({ message: 'Tax id should be a string' })
   @IsNotEmpty()
   taxId: string;
 
-  @IsString()
+  @IsString({ message: 'Medicare ptan should be a string' })
   @IsOptional()
   medicarePtan?: string;
 
-  @IsString()
+  @IsString({ message: 'CLIA no should be a string' })
   @IsOptional()
   cliaNo?: string;
 
-  @IsString()
+  @IsString({ message: 'Pathology prefix should be a string' })
   @IsOptional()
   pathologyPrefix?: string;
 
-  @IsString()
+  @IsString({ message: 'Frozen selection prefix should be a string' })
   @IsOptional()
   frozenSelectionPrefix?: string;
 
-  @IsString()
+  @IsString({ message: 'Patient location prefix should be a string' })
   @IsOptional()
   patientLocationPrefix?: string;
 
-  @IsString()
+  @IsString({ message: 'Time zone should be a string' })
   @IsOptional()
   timeZone?: string;
 
-  @IsDate()
+  @IsDate({ message: 'Opening date is not valid' })
   @Type(() => Date)
   @IsOptional()
   closingDate?: Date;
 
-  @IsEmail()
+  @Validate(DeliverableEmailValidator)
+  @IsEmail({}, { message: 'Biller email is not valid' })
   @IsOptional()
   BillerEmail?: string;
 
-  @IsString()
+  @IsString({ message: 'Biller contact should be a string' })
   @IsOptional()
   BillerContact?: string;
 
-  @IsString()
+  @IsString({ message: 'Location header should be a string' })
   @IsOptional()
   locationHeader?: string;
 
-  @IsString()
+  @IsString({ message: 'Location footer should be a string' })
   @IsOptional()
   locationFooter?: string;
 }

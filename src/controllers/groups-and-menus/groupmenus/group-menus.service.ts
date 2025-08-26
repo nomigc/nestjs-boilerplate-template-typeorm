@@ -1,21 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { CreateGroupMenuDto } from './dto/create-group-menu.dto';
-import { UpdateGroupMenuDto } from './dto/update-group-menu.dto';
 import {
   createRepositoryHelper,
   deleteRepositoryHelper,
-  existsRepositoryHelper,
   findAllRepositoryHelper,
   findOneRepositoryHelper,
   updateRepositoryHelper,
 } from '@/common/helper/repositories';
 import { InjectRepository } from '@nestjs/typeorm';
-import { GroupMenu } from './entities';
+import { GroupMenu, GROUP_MENU_MODEL } from './entities';
 import { Repository } from 'typeorm';
-import { GROUP_MENU_MODEL } from './entities/group-menu.entity';
 import { Group, GROUP_MODEL } from '../groups/entities/group.entity';
-import { Menu } from '../menus/entities';
-import { MENU_MODEL } from '../menus/entities/menu.entity';
+import { Menu, MENU_MODEL } from '../menus/entities';
+import { CreateGroupMenuDto, UpdateGroupMenuDto } from './dto';
 
 @Injectable()
 export class GroupMenusService {

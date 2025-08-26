@@ -10,8 +10,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { GroupMenusService } from './group-menus.service';
-import { CreateGroupMenuDto } from './dto/create-group-menu.dto';
-import { UpdateGroupMenuDto } from './dto/update-group-menu.dto';
+import { CreateGroupMenuDto, UpdateGroupMenuDto } from './dto';
 import { createResponse } from '@/utils';
 import { GROUP_MENU_MODEL } from './entities/group-menu.entity';
 import { JwtAuthGuard } from '@/common/guards';

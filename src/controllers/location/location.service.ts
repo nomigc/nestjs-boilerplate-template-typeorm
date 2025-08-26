@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateLocationDto } from './dto/create-location.dto';
-import { UpdateLocationDto } from './dto/update-location.dto';
 import {
   createRepositoryHelper,
   deleteRepositoryHelper,
@@ -11,9 +9,9 @@ import {
 } from '@/common/helper/repositories';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Location } from './entities';
-import { LOCATION_MODEL } from './entities/location.entity';
+import { Location, LOCATION_MODEL } from './entities';
 import { Practice, PRACTICE_MODEL } from '../practice/entities/practice.entity';
+import { CreateLocationDto, UpdateLocationDto } from './dto';
 
 @Injectable()
 export class LocationService {

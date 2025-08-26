@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePracticeDto } from './dto/create-practice.dto';
-import { UpdatePracticeDto } from './dto/update-practice.dto';
 import {
   createRepositoryHelper,
   deleteRepositoryHelper,
@@ -10,9 +8,9 @@ import {
   updateRepositoryHelper,
 } from '@/common/helper/repositories';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Practice } from './entities';
+import { Practice, PRACTICE_MODEL } from './entities';
 import { Repository } from 'typeorm';
-import { PRACTICE_MODEL } from './entities/practice.entity';
+import { CreatePracticeDto, UpdatePracticeDto } from './dto';
 
 @Injectable()
 export class PracticeService {

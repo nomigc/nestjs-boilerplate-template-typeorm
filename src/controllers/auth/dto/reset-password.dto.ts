@@ -1,7 +1,7 @@
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { DeliverableEmailValidator } from '@/common/validators';
+import { Validate } from 'class-validator';
 
 export class ResetPasswordDto {
-  @IsEmail({}, { message: 'Email is not valid' })
-  @IsNotEmpty({ message: 'Email is required' })
+  @Validate(DeliverableEmailValidator)
   email: string;
 }

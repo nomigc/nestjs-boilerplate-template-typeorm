@@ -1,10 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { LocationService } from './location.service';
-import { CreateLocationDto } from './dto/create-location.dto';
-import { UpdateLocationDto } from './dto/update-location.dto';
 import { createResponse } from '@/utils';
 import { LOCATION_MODEL } from './entities/location.entity';
+import { JwtAuthGuard } from '@/common/guards';
+import { CreateLocationDto, UpdateLocationDto } from './dto';
 
+@UseGuards(JwtAuthGuard)
 @Controller('location')
 export class LocationController {
   constructor(private readonly locationService: LocationService) {}

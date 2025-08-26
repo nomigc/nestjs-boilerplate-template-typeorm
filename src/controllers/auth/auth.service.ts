@@ -1,5 +1,4 @@
-import { Inject, Injectable, LoggerService, Res } from '@nestjs/common';
-import { UserRepository } from '../user/user.repository';
+import { Inject, Injectable, LoggerService } from '@nestjs/common';
 import { User, USER_MODEL } from '@/schemas/common';
 import {
   CustomBadRequestException,
@@ -23,8 +22,7 @@ import { JwtCustomService } from '@/services/jwt/jwt.service';
 import { Group, GROUP_MODEL } from '../groups-and-menus/groups/entities/group.entity';
 import { Response } from 'express';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
-import { Logger } from 'winston';
-import validate from 'deep-email-validator';
+import { UserRepository } from './auth.repository';
 
 @Injectable()
 export class AuthService {
@@ -36,7 +34,7 @@ export class AuthService {
     private readonly jwtCustomService: JwtCustomService,
 
     @Inject(WINSTON_MODULE_NEST_PROVIDER)
-    private readonly logger: LoggerService,
+    private readonly winstonLogger: LoggerService,
 
     @InjectRepository(User)
     private userTypeOrmRepository: Repository<User>,
@@ -75,7 +73,7 @@ export class AuthService {
 
     createdUser.password = null;
 
-    this.logger.log('User created successfully', {
+    this.winstonLogger.log('User created successfully', {
       context: 'AuthService',
       email: email,
       userName: userName,
@@ -123,10 +121,10 @@ export class AuthService {
       sameSite: this.appConfigService.envCookieSameSite,
     });
 
-    this.logger.log('User logged in successfully', {
+    this.winstonLogger.log('User logged in successfully', {
       context: 'AuthService',
-      email: user.email,
-      userName: user.userName,
+      email: user?.email,
+      userName: user?.userName,
     });
 
     return {
@@ -161,6 +159,12 @@ export class AuthService {
       },
     );
 
+    this.winstonLogger.log('Password reset link sent successfully', {
+      context: 'AuthService',
+      email: searchUserByEmail?.email,
+      userName: searchUserByEmail?.userName,
+    });
+
     return {
       access_token,
     };
@@ -194,6 +198,12 @@ export class AuthService {
       USER_MODEL,
       this.userTypeOrmRepository,
     );
+
+    this.winstonLogger.log('Password updated successfully', {
+      context: 'AuthService',
+      email: searchUserByEmail?.email,
+      userName: searchUserByEmail?.userName,
+    });
 
     return updatedUser;
   }

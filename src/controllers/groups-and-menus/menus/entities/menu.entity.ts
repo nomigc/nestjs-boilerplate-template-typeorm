@@ -1,16 +1,8 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { BaseEntity } from '@/schemas/common';
+import { Column, Entity } from 'typeorm';
 
 @Entity()
-export class Menu {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Menu extends BaseEntity {
   @Column()
   title: string;
 
@@ -22,12 +14,6 @@ export class Menu {
 
   @Column({ default: false })
   isDeleted: boolean;
-
-  @CreateDateColumn({ type: 'timestamptz' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ type: 'timestamptz' })
-  updatedAt: Date;
 }
 
 export const MENU_MODEL: string = Menu.name;

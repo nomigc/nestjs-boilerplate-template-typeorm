@@ -1,3 +1,4 @@
+import { BaseEntity } from '@/schemas/common';
 import {
   Column,
   CreateDateColumn,
@@ -7,11 +8,8 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Practice {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column({ nullable: false, unique: true })
+export class Practice extends BaseEntity {
+  @Column({ nullable: false })
   practiceName: string;
 
   @Column({ nullable: true })
@@ -40,12 +38,6 @@ export class Practice {
 
   @Column({ default: false })
   isDeleted: boolean;
-
-  @CreateDateColumn({ type: 'timestamptz' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ type: 'timestamptz' })
-  updatedAt: Date;
 }
 
 export const PRACTICE_MODEL: string = Practice.name;

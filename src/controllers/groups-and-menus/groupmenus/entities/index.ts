@@ -1,1 +1,1 @@
-export { GroupMenu } from './group-menu.entity';
+export { GroupMenu, GROUP_MENU_MODEL } from './group-menu.entity';

@@ -6,20 +6,19 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtStrategy } from '@/strategy/jwt.strategy';
 import { HashModule } from '@/services/hash/hash.module';
 import { User } from '@/schemas/common';
-import { UserModule } from '../user/user.module';
 import { AppConfigService } from '@/config/config.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MailModule } from '../../mail/mail.module';
 import { MailService } from '../../mail/mail.service';
 import { JwtCustomModule } from '@/services/jwt/jwt.module';
 import { Group } from '../groups-and-menus/groups/entities';
+import { UserRepository } from './auth.repository';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([User, Group]),
     HashModule,
     JwtCustomModule,
-    UserModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
@@ -34,7 +33,7 @@ import { Group } from '../groups-and-menus/groups/entities';
     MailModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, AppConfigService, MailService],
+  providers: [AuthService, JwtStrategy, AppConfigService, MailService, UserRepository],
   exports: [AuthService, JwtModule],
 })
 export class AuthModule {}

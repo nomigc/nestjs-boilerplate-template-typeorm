@@ -4,7 +4,7 @@ import { ParseFilePipeBuilder } from '@nestjs/common';
 
 /** 
   Pipe for validate file. This will validate file's type and size
-  @param {String} fileIsRequired pass true if file is required else false
+  @param {string} fileIsRequired pass true if file is required else false
 */
 @Injectable()
 export class FileValidationPipe implements PipeTransform {
@@ -19,13 +19,12 @@ export class FileValidationPipe implements PipeTransform {
         fileType: /(jpg|jpeg|png)$/,
       })
       .addMaxSizeValidator({
-        maxSize: 5 * 1024 * 1024, // 5MB
+        maxSize: 5 * 1024 * 1024, // 5MB (or it can come from environment variables)
       })
       .build({
         fileIsRequired: this.fileIsRequired,
         exceptionFactory: (error) => {
-          let message =
-            'Invalid file. Only JPG, JPEG, and PNG files under 5MB are allowed';
+          let message = 'Invalid file. Only JPG, JPEG, and PNG files under 5MB are allowed';
 
           if (error === 'File is required') {
             message = `${this.fileName} is required`;

@@ -9,6 +9,8 @@ import { WinstonModule } from 'nest-winston';
 import { winstonConfig } from './common/logger';
 import { PracticeModule } from './controllers/practice/practice.module';
 import { LocationModule } from './controllers/location/location.module';
+import { AppointmentTypesModule } from './controllers/appointment-types/appointment-types.module';
+import { AppointmentReasonModule } from './controllers/appointment-reason/appointment-reason.module';
 
 const GlobalImports: any = [
   //* env global configuration
@@ -38,6 +40,8 @@ const GlobalImports: any = [
   GroupMenusModule,
   PracticeModule,
   LocationModule,
+  AppointmentTypesModule,
+  AppointmentReasonModule,
 ];
 
 export default GlobalImports;

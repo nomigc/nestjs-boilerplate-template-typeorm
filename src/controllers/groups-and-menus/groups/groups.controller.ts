@@ -10,8 +10,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { GroupsService } from './groups.service';
-import { CreateGroupDto } from './dto/create-group.dto';
-import { UpdateGroupDto } from './dto/update-group.dto';
+import { CreateGroupDto, UpdateGroupDto } from './dto';
 import { createResponse } from '@/utils';
 import { GROUP_MODEL } from './entities/group.entity';
 import { JwtAuthGuard } from '@/common/guards';

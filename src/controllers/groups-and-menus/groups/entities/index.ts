@@ -1,1 +1,1 @@
-export { Group } from './group.entity';
+export { Group, GROUP_MODEL } from './group.entity';

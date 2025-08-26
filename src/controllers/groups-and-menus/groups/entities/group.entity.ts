@@ -1,4 +1,4 @@
-import { User } from '@/schemas/common';
+import { BaseEntity, User } from '@/schemas/common';
 import {
   Column,
   CreateDateColumn,

@@ -1,21 +1,10 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { Group } from '../../groups/entities';
 import { Menu } from '../../menus/entities';
-import { User } from '@/schemas/common';
+import { BaseEntity, User } from '@/schemas/common';
 
 @Entity()
-export class GroupMenu {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class GroupMenu extends BaseEntity {
   @Column()
   groupId: number;
 
@@ -52,12 +41,6 @@ export class GroupMenu {
   @ManyToOne(() => User, (user) => user.id, { nullable: false })
   @JoinColumn({ name: 'updatedById' })
   updatedByUser: User;
-
-  @CreateDateColumn({ type: 'timestamptz' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ type: 'timestamptz' })
-  updatedAt: Date;
 }
 
 export const GROUP_MENU_MODEL: string = GroupMenu.name;

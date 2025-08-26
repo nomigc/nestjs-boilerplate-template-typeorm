@@ -10,11 +10,10 @@ import {
   Query,
 } from '@nestjs/common';
 import { PracticeService } from './practice.service';
-import { CreatePracticeDto } from './dto/create-practice.dto';
-import { UpdatePracticeDto } from './dto/update-practice.dto';
 import { createResponse } from '@/utils';
 import { PRACTICE_MODEL } from './entities/practice.entity';
 import { JwtAuthGuard } from '@/common/guards';
+import { CreatePracticeDto, UpdatePracticeDto } from './dto';
 
 @UseGuards(JwtAuthGuard)
 @Controller('practice')

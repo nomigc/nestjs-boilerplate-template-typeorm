@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateGroupDto } from './dto/create-group.dto';
-import { UpdateGroupDto } from './dto/update-group.dto';
 import {
   createRepositoryHelper,
   deleteRepositoryHelper,
@@ -12,6 +10,7 @@ import {
 import { Group, GROUP_MODEL } from './entities/group.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { CreateGroupDto, UpdateGroupDto } from './dto';
 
 @Injectable()
 export class GroupsService {

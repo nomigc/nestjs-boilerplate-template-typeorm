@@ -1,19 +1,9 @@
 import { Practice } from '@/controllers/practice/entities';
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  JoinColumn,
-  ManyToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { BaseEntity } from '@/schemas/common';
+import { Column, Entity, JoinColumn, ManyToMany } from 'typeorm';
 
 @Entity()
-export class Location {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Location extends BaseEntity {
   @Column()
   practiceId: number;
 
@@ -21,7 +11,7 @@ export class Location {
   @JoinColumn({ name: 'practiceId' })
   practice: Practice;
 
-  @Column({ nullable: false, unique: true })
+  @Column({ nullable: false })
   locationName: string;
 
   @Column({ nullable: true })
@@ -98,12 +88,6 @@ export class Location {
 
   @Column({ nullable: true })
   locationFooter: string;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 }
 
 export const LOCATION_MODEL: string = Location.name;

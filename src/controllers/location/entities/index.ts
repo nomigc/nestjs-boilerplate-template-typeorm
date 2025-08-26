@@ -1,1 +1,1 @@
-export { Location } from './location.entity';
+export { Location, LOCATION_MODEL } from './location.entity';

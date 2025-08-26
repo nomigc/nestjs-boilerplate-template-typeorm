@@ -1,20 +1,10 @@
 import { Group } from '@/controllers/groups-and-menus/groups/entities';
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { BaseEntity } from './base.entity';
 
 @Entity()
-export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column({ nullable: false, unique: true })
+export class User extends BaseEntity {
+  @Column({ nullable: false })
   userName: string;
 
   @Column({ nullable: false })
@@ -23,7 +13,7 @@ export class User {
   @Column({ nullable: false })
   initials: string; //* (i.e Nouman Sharif => NS)
 
-  @Column({ nullable: false, unique: true })
+  @Column({ nullable: false })
   email: string;
 
   @Column({ nullable: false })
@@ -66,12 +56,6 @@ export class User {
 
   @Column({ nullable: true })
   mobileNumber?: string;
-
-  @CreateDateColumn({ type: 'timestamptz' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ type: 'timestamptz' })
-  updatedAt: Date;
 }
 
 export const USER_MODEL: string = User.name;

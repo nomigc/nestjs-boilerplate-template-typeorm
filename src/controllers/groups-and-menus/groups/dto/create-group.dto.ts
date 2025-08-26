@@ -9,7 +9,7 @@ export class CreateGroupDto {
   @IsNotEmpty({ message: 'Description is required' })
   description: string;
 
-  @IsNumber()
+  @IsNumber({}, { message: 'Created by id should be a number' })
   @IsOptional()
   createdById?: number;
 }

@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Req, Put, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { createResponse, CustomUnauthorizedException } from '@/utils';
+import { createResponse } from '@/utils';
 import { USER_MODEL } from '@/schemas/common';
 import { CreateAuthDto, LoginUserDto, newPasswordDto, ResetPasswordDto } from './dto';
 import { Request } from 'express';
